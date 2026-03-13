@@ -1,0 +1,12 @@
+{
+  "memories": [
+    {
+      "type": "project",
+      "content": "User is building an engineering-oriented GitHub project that uses AI APIs."
+    },
+    {
+      "type": "project",
+      "content": "The project aims to implement a long-term context memory system that continuously extracts key information from conversations and saves part of it as a core file similar to a system prompt."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "我想做一个偏工程向的利用ai接口的github项目。"
+  },
+  {
+    "role": "assistant",
+    "content": "可以做一个长期上下文记忆系统。"
+  },
+  {
+    "role": "user",
+    "content": "功能是在上下文中持续性地习得关键信息，把其中一部分作为核心文件保存，类似于system prompt。"
+  },
+  {
+    "role": "user",
+    "content": "我想直接开始，我们今晚先把最简单的版本跑起来。"
+  }
+]
