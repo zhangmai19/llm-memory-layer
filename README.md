@@ -1,4 +1,3 @@
-````markdown
 # LLM Memory Layer V2.5
 
 A simple Python-based long-term memory system for LLM conversations.
@@ -120,5 +119,3 @@ V2.5 adds a lightweight local web interface for easier testing and debugging, in
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
 ````
-
----
