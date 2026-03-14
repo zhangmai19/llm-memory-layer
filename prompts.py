@@ -14,7 +14,7 @@ Output format:
 {
   "memories": [
     {
-      "type": "preference | project | constraint | fact",
+      "type": "preference | project | constraint | fact | goal | identity",
       "content": "..."
     }
   ]

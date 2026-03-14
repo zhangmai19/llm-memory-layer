@@ -45,29 +45,34 @@ Return JSON only.
         start = content.find("{")
         end = content.rfind("}") + 1
         if start != -1 and end != -1:
-            return json.loads(content[start:end])
-        raise ValueError(f"Model did not return valid JSON:\\n{content}")
+            try:
+                return json.loads(content[start:end])
+            except json.JSONDecodeError:
+                pass
+
+        print("Memory extraction JSON parse failed. Raw output:")
+        print(content)
+        return {"memories": []}
 
 
-def build_chat_prompt(user_input, memory_text):
-    return [
-        {
-            "role": "system",
-            "content": f"You are a helpful assistant.\\n\\nCore memory:\\n{memory_text}"
-        },
-        {
-            "role": "user",
-            "content": user_input
-        }
-    ]
+def generate_assistant_reply(messages, core_memory):
+    system_prompt = f"""
+You are a helpful assistant.
 
+Here is the long-term memory you know about the user:
+{json.dumps(core_memory, ensure_ascii=False, indent=2)}
 
-def chat_with_memory(user_input, memory_text):
-    messages = build_chat_prompt(user_input, memory_text)
+Use this memory only when relevant.
+Do not mention the memory unnaturally.
+Be natural, helpful, and concise.
+"""
 
     response = client.chat.completions.create(
         model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
-        messages=messages,
+        messages=[
+            {"role": "system", "content": system_prompt},
+            *messages
+        ],
         temperature=0.7
     )
 

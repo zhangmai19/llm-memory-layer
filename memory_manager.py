@@ -16,17 +16,34 @@ def save_memory(memory_data, file_path="core_memory.json"):
 
 
 def merge_memories(old_memory, new_memory):
+    old_items = old_memory.get("memories", [])
+    new_items = new_memory.get("memories", [])
+
     existing = {
-        (item["type"].strip().lower(), item["content"].strip())
-        for item in old_memory.get("memories", [])
+        (
+            item.get("type", "").strip().lower(),
+            item.get("content", "").strip()
+        )
+        for item in old_items
+        if item.get("content", "").strip()
     }
 
-    for item in new_memory.get("memories", []):
-        key = (item["type"].strip().lower(), item["content"].strip())
+    for item in new_items:
+        mem_type = item.get("type", "").strip().lower()
+        content = item.get("content", "").strip()
+
+        if not content:
+            continue
+
+        key = (mem_type, content)
         if key not in existing:
-            old_memory["memories"].append(item)
+            old_items.append({
+                "type": mem_type,
+                "content": content
+            })
             existing.add(key)
 
+    old_memory["memories"] = old_items
     return old_memory
 
 

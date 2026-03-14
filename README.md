@@ -1,20 +1,39 @@
-# llm-memory-layer
+```md
+# LLM Memory Layer V1
 
-A minimal MVP for persistent memory extraction with LLMs.
+A simple structured memory CLI prototype for LLM applications.
 
 ## Features
 
-- Load conversation history
-- Extract reusable memory with an LLM
-- Save memory into `core_memory.json`
-- Inject memory into the next prompt
+- CLI multi-turn chat
+- Conversation persistence
+- Structured long-term memory in JSON
+- Automatic memory extraction after each turn
+- Simple deduplication
 
 ## Setup
 
 ```bash
-python -m venv venv
-source venv/Scripts/activate
-pip install -r requirements.txt
+pip install openai python-dotenv
+```
+
+Create `.env` from `.env.example`:
+
+```env
+OPENAI_API_KEY=your_api_key_here
+OPENAI_BASE_URL=https://api.openai.com/v1
+OPENAI_MODEL=gpt-4o-mini
+```
+
+Initialize:
+
+- `conversation.json` with `[]`
+- `core_memory.json` with:
+
+```json
+{
+  "memories": []
+}
 ```
 
 ## Run
@@ -22,6 +41,11 @@ pip install -r requirements.txt
 ```bash
 python app.py
 ```
+
+## Commands
+
+- `show memory`
+- `exit`
 ```
 
 ---

@@ -7,6 +7,18 @@
     {
       "type": "project",
       "content": "The project aims to implement a long-term context memory system that continuously extracts key information from conversations and saves part of it as a core file similar to a system prompt."
+    },
+    {
+      "type": "goal",
+      "content": "User wants to run a minimal viable version of the long-term context memory system tonight."
+    },
+    {
+      "type": "project",
+      "content": "The user has implemented a V1 version of the long-term memory system with: multi-turn CLI conversation, conversation persistence, structured memory persistence, basic memory extraction, simple deduplication/merging, and memory viewing."
+    },
+    {
+      "type": "project",
+      "content": "The user has implemented a V1 version of the long-term memory system including: multi-turn CLI conversation, conversation persistence, structured memory persistence, basic memory extraction, simple deduplication/merging, and memory viewing."
     }
   ]
 }
