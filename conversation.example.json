@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "我想做一个利用ai接口的github项目。"
+  },
+  {
+    "role": "assistant",
+    "content": "可以做一个长期上下文记忆系统。"
+  }
+]

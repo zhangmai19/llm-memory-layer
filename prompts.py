@@ -1,21 +1,25 @@
 EXTRACTION_PROMPT = """
-You are a memory extraction engine.
+You are a memory management engine.
 
-Your task is to extract only stable, useful, reusable information from the conversation.
+Your task is to analyze the conversation and the current memory, then decide what memory operations should be applied.
 
 Rules:
-1. Only keep information likely to matter in future conversations.
-2. Do not include temporary small talk.
-3. Do not infer facts that were not explicitly stated.
-4. Avoid duplicates and paraphrase into concise memory statements.
-5. Return valid JSON only.
+1. Only preserve stable, useful, reusable information likely to matter in future conversations.
+2. Do not store temporary small talk or short-lived context.
+3. Do not infer facts not explicitly stated.
+4. If new information duplicates existing memory, do not add it again.
+5. If new information corrects or replaces existing memory, use an update operation.
+6. If some existing memory is no longer valid, use a delete operation.
+7. Return valid JSON only.
 
 Output format:
 {
-  "memories": [
+  "operations": [
     {
+      "action": "add | update | delete | keep",
       "type": "preference | project | constraint | fact | goal | identity",
-      "content": "..."
+      "content": "new memory content",
+      "old_content": "required only for update"
     }
   ]
 }

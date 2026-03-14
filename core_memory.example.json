@@ -1,0 +1,12 @@
+{
+  "memories": [
+    {
+      "type": "project",
+      "content": "User is building an engineering-oriented GitHub project that uses AI APIs."
+    },
+    {
+      "type": "goal",
+      "content": "User wants to run a minimal viable version of the long-term context memory system tonight."
+    }
+  ]
+}

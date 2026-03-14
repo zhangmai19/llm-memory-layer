@@ -11,8 +11,34 @@ client = OpenAI(
     base_url=os.getenv("OPENAI_BASE_URL"),
 )
 
+MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 
-def extract_memories(conversation, current_memory_text=""):
+
+def generate_assistant_reply(messages, core_memory):
+    system_prompt = f"""
+You are a helpful AI assistant.
+
+Here is the current long-term memory about the user:
+{json.dumps(core_memory, ensure_ascii=False, indent=2)}
+
+Use this memory only when relevant.
+Do not mention memory unnaturally.
+Be concise, helpful, and natural.
+"""
+
+    response = client.chat.completions.create(
+        model=MODEL,
+        messages=[
+            {"role": "system", "content": system_prompt},
+            *messages
+        ],
+        temperature=0.7,
+    )
+
+    return response.choices[0].message.content
+
+
+def extract_memory_operations(conversation, current_memory_text=""):
     conversation_text = "\n".join(
         [f"{msg['role']}: {msg['content']}" for msg in conversation]
     )
@@ -24,17 +50,17 @@ Current core memory:
 Conversation:
 {conversation_text}
 
-Extract reusable memory from the conversation.
+Analyze whether any memory should be added, updated, or deleted.
 Return JSON only.
 """
 
     response = client.chat.completions.create(
-        model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
+        model=MODEL,
         messages=[
             {"role": "system", "content": EXTRACTION_PROMPT},
             {"role": "user", "content": user_prompt},
         ],
-        temperature=0
+        temperature=0,
     )
 
     content = response.choices[0].message.content.strip()
@@ -50,30 +76,6 @@ Return JSON only.
             except json.JSONDecodeError:
                 pass
 
-        print("Memory extraction JSON parse failed. Raw output:")
+        print("Memory operation extraction JSON parse failed. Raw output:")
         print(content)
-        return {"memories": []}
-
-
-def generate_assistant_reply(messages, core_memory):
-    system_prompt = f"""
-You are a helpful assistant.
-
-Here is the long-term memory you know about the user:
-{json.dumps(core_memory, ensure_ascii=False, indent=2)}
-
-Use this memory only when relevant.
-Do not mention the memory unnaturally.
-Be natural, helpful, and concise.
-"""
-
-    response = client.chat.completions.create(
-        model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
-        messages=[
-            {"role": "system", "content": system_prompt},
-            *messages
-        ],
-        temperature=0.7
-    )
-
-    return response.choices[0].message.content
+        return {"operations": []}

@@ -3,10 +3,10 @@ import os
 from memory_manager import (
     load_memory,
     save_memory,
-    merge_memories,
     format_memory_for_prompt,
+    apply_memory_operations,
 )
-from llm import extract_memories, generate_assistant_reply
+from llm import extract_memory_operations, generate_assistant_reply
 
 CONVERSATION_FILE = "conversation.json"
 MEMORY_FILE = "core_memory.json"
@@ -41,7 +41,7 @@ def main():
     conversation = load_conversation()
     core_memory = load_memory(MEMORY_FILE)
 
-    print("LLM Memory CLI (V1)")
+    print("LLM Memory CLI (V2)")
     print("Commands:")
     print("- show memory")
     print("- exit\n")
@@ -74,8 +74,12 @@ def main():
         save_conversation(conversation, CONVERSATION_FILE)
 
         current_memory_text = format_memory_for_prompt(core_memory)
-        extracted_memory = extract_memories(conversation[-12:], current_memory_text)
-        core_memory = merge_memories(core_memory, extracted_memory)
+        operation_data = extract_memory_operations(conversation[-12:], current_memory_text)
+
+        print("Memory operations:")
+        print(json.dumps(operation_data, ensure_ascii=False, indent=2))
+
+        core_memory = apply_memory_operations(core_memory, operation_data)
         save_memory(core_memory, MEMORY_FILE)
 
 

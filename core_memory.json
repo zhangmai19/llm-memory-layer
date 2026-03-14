@@ -18,7 +18,7 @@
     },
     {
       "type": "project",
-      "content": "The user has implemented a V1 version of the long-term memory system including: multi-turn CLI conversation, conversation persistence, structured memory persistence, basic memory extraction, simple deduplication/merging, and memory viewing."
+      "content": "User decided to prioritize building a CLI version of the long-term memory system first instead of evolving it into a Web UI application."
     }
   ]
 }

@@ -1,7 +1,16 @@
 ```md
-# LLM Memory Layer V1
+# LLM Memory Layer V2
 
-A simple structured memory CLI prototype for LLM applications.
+A simple Python-based long-term memory system for LLM conversations.
+
+This project explores how to build a memory layer on top of an LLM-powered assistant.  
+Instead of treating memory as an append-only notebook, V2 introduces **memory operations**:
+
+- `add`
+- `update`
+- `delete`
+
+This makes the system more maintainable and closer to a real memory management workflow.
 
 ## Features
 
