@@ -1,7 +1,23 @@
+# Python
 __pycache__/
 *.pyc
-.env
-.venv/
+*.pyo
+*.pyd
+
+# Virtual environment
 venv/
-core_memory.json
+.venv/
+env/
+
+# Environment variables
+.env
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Local runtime data
 conversation.json
+core_memory.json
+last_operations.json

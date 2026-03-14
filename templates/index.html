@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LLM Memory Layer V2.5</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <h1>LLM Memory Layer V2.5</h1>
+            <div id="chat-box" class="chat-box"></div>
+
+            <div class="input-row">
+                <input id="message-input" type="text" placeholder="Type your message..." />
+                <button id="send-btn">Send</button>
+            </div>
+
+            <div class="controls">
+                <button id="reset-btn">Reset Conversation</button>
+                <button id="clear-memory-btn">Clear Memory</button>
+                <button id="reload-btn">Reload</button>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <section>
+                <h2>Core Memory</h2>
+                <pre id="memory-box"></pre>
+            </section>
+
+            <section>
+                <h2>Last Operations</h2>
+                <pre id="operations-box"></pre>
+            </section>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

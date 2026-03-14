@@ -1,5 +1,5 @@
-```markdown
-# LLM Memory Layer V2
+````markdown
+# LLM Memory Layer V2.5
 
 A simple Python-based long-term memory system for LLM conversations.
 
@@ -13,26 +13,38 @@ This makes the system more maintainable and closer to a real long-term memory wo
 
 ## Features
 
-- CLI multi-turn chat
+- CLI-based multi-turn chat
+- Local web UI for testing conversations
 - Conversation persistence
 - Structured long-term memory in JSON
 - Automatic memory extraction after each turn
 - Operation-based memory updates
 - Simple deduplication
+- Real-time core memory inspection
+- Memory operations panel
+- Reset conversation and clear memory controls
 
 ## Project Structure
 
 ```text
 .
-├─ app.py
-├─ llm.py
-├─ memory_manager.py
-├─ prompts.py
-├─ README.md
-├─ requirements.txt
-├─ .env.example
-├─ core_memory.example.json
-└─ conversation.example.json
+├── app.py
+├── cli.py
+├── engine.py
+├── llm.py
+├── memory_manager.py
+├── prompts.py
+├── README.md
+├── requirements.txt
+├── .env.example
+├── core_memory.example.json
+├── conversation.example.json
+├── last_operations.json
+├── templates/
+│   └── index.html
+└── static/
+    ├── app.js
+    └── style.css
 ```
 
 ## Setup
@@ -57,13 +69,13 @@ OPENAI_BASE_URL=https://api.openai.com/v1
 OPENAI_MODEL=gpt-4o-mini
 ```
 
+Create `conversation.json` from `conversation.example.json` and initialize it with:
 
-Create `conversation.json` from `conversation.example.json`:
-Initialize: `conversation.json` with `[]`
+```json
+[]
+```
 
-Create `core_memory.json` from `core_memory.example.json`:
-Initialize: `core_memory.json` with `[]`
-
+Create `core_memory.json` from `core_memory.example.json` and initialize it with:
 
 ```json
 {
@@ -71,13 +83,29 @@ Initialize: `core_memory.json` with `[]`
 }
 ```
 
-## Run
+Create `last_operations.json` and initialize it with:
+
+```json
+[]
+```
+
+## Run Web UI
 
 ```bash
 python app.py
 ```
 
+Open `http://127.0.0.1:5000` in your browser.
+
+## Run CLI
+
+```bash
+python cli.py
+```
+
 ## Commands
+
+CLI commands:
 
 - `show memory`
 - `exit`
@@ -86,9 +114,11 @@ python app.py
 
 V2 upgrades the memory system from append-only storage to operation-based updates, allowing the assistant to maintain cleaner and more accurate long-term memory over time.
 
+V2.5 adds a lightweight local web interface for easier testing and debugging, including memory inspection, operation tracking, and reset controls.
+
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
-```
+````
 
 ---

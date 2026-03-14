@@ -7,7 +7,15 @@ def load_memory(file_path):
         return {"memories": []}
 
     with open(file_path, "r", encoding="utf-8") as f:
-        return json.load(f)
+        data = json.load(f)
+
+    if not isinstance(data, dict):
+        return {"memories": []}
+
+    if "memories" not in data or not isinstance(data["memories"], list):
+        data["memories"] = []
+
+    return data
 
 
 def save_memory(memory_data, file_path):
